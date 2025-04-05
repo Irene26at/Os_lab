@@ -1,0 +1,49 @@
+#include<stdio.h>
+void main()
+{
+    int i,j,k;//for looping
+    int n;//length of refernce string
+    int rs[25];//used to store the values of the refernce string
+    int f;//number of frames
+    int m[10];//used to hold the frames
+    int pf=0;//counts the number of page faults
+    int count=0;//resets the count when all frame is used
+    printf("enter the length of the refernce string:");
+    scanf("%d",&n);
+    printf("Enter refernce string:");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&rs[i]);
+    }
+    printf("Enter the number of frames");
+    scanf("%d",&f);
+    for(i=0;i<f;i++)
+    {
+        m[i]=-1;
+    }
+    printf("The page replacement is :\n");
+    for(i=0;i<n;i++)
+    {
+        for(k=0;k<f;k++)
+        {
+            if(m[k]==rs[i])//if no page fault occurs
+                break;
+        }
+        if(k==f)//if page fault occurs
+        {
+            m[count++]=rs[i];
+            pf++;
+        }
+        for(j=0;j<f;j++)//print the memory contents
+        {
+            printf("\t%d",m[j]);
+        }
+        if(k==f)//prints the page fault when occurs
+            printf("\t Pf is %d",pf);
+        printf("\n");
+        if(count==f)//if all frames are used so we reset count
+            count=0;
+    }
+    printf("The numberr of page replacement when using FIFO is %d\n",pf);
+    
+}
